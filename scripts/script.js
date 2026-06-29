@@ -16,6 +16,10 @@ function divide(a, b) {
   return a / b;
 }
 
+const display = document.querySelector("#display");
+display.style.pointerEvents = "none";
+display.tabIndex = -1;
+
 function operate(operatorArg, operandLArg, operandRArg) {
   return operatorArg(operandLArg, operandRArg);
 }
