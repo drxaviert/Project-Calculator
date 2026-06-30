@@ -23,3 +23,10 @@ display.tabIndex = -1;
 function operate(operatorArg, operandLArg, operandRArg) {
   return operatorArg(operandLArg, operandRArg);
 }
+
+const buttons = document.querySelectorAll("button");
+buttons.forEach((button) =>
+  button.addEventListener("click", (event) => {
+    console.log(button.textContent);
+  }),
+);
