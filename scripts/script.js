@@ -73,7 +73,8 @@ buttons.forEach((button) =>
     }
 
     if (button.textContent == "Clear") {
-      console.log("clear");
+      operator = operandL = operandR = null;
+      // console.log("clear");
     }
     console.log([button.textContent, operandL, operandR]);
     // display.value = button.textContent;
