@@ -36,14 +36,18 @@ buttons.forEach((button) =>
       if (operator == undefined) {
         if (operandL == undefined) {
           operandL = button.textContent;
+          display.value = operandL;
         } else {
           operandL += button.textContent;
+          display.value = operandL;
         }
       } else {
         if (operandR == undefined) {
           operandR = button.textContent;
+          display.value = operandR;
         } else {
           operandR += button.textContent;
+          display.value = operandR;
         }
       }
 
@@ -67,16 +71,22 @@ buttons.forEach((button) =>
     }
 
     if (button.textContent == "=") {
-      result = operate(operatorFunc, operandL, operandR);
-      console.log(result);
+      if (!!operandL == true && !!operandR == true && !!operator == true) {
+        result = operate(operatorFunc, operandL, operandR);
+        console.log([result, typeof result]);
+        display.value = Math.round(result * 100) / 100;
+      } else {
+        operator = operandL = operandR = null;
+        display.value = 0;
+      }
       // console.log("execute");
     }
 
     if (button.textContent == "Clear") {
       operator = operandL = operandR = null;
+      display.value = 0;
       // console.log("clear");
     }
-    console.log([button.textContent, operandL, operandR]);
-    // display.value = button.textContent;
+    console.log([button.textContent, operandL, operator, operandR, result]);
   }),
 );
