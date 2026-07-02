@@ -13,7 +13,11 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-  return a / b;
+  if (a != 0) {
+    return a / b;
+  } else {
+    return "LOL";
+  }
 }
 
 function getResult() {
@@ -26,7 +30,7 @@ function reset() {
   display.value = 0;
 }
 
-function dotChecker() {
+function decimalChecker() {
   //
 }
 
@@ -50,22 +54,41 @@ buttons.forEach((button) =>
       if (result != null) {
         reset();
       }
-
       if (operator == null) {
         if (operandL == null) {
-          operandL = button.textContent;
-          display.value = operandL;
+          if (button.textContent != ".") {
+            operandL = button.textContent;
+            display.value = operandL;
+          }
         } else {
-          operandL += button.textContent;
-          display.value = operandL;
+          if (button.textContent != ".") {
+            operandL += button.textContent;
+            display.value = operandL;
+          } else {
+            if (!operandL.includes(".")) {
+              operandL += button.textContent;
+              display.value = operandL;
+            }
+          }
         }
       } else {
         if (operandR == null) {
-          operandR = button.textContent;
-          display.value = operandR;
+          if (button.textContent != ".") {
+            if (button.textContent != ".") {
+              operandR = button.textContent;
+              display.value = operandR;
+            }
+          }
         } else {
-          operandR += button.textContent;
-          display.value = operandR;
+          if (button.textContent != ".") {
+            operandR += button.textContent;
+            display.value = operandR;
+          } else {
+            if (!operandR.includes(".")) {
+              operandR += button.textContent;
+              display.value = operandR;
+            }
+          }
         }
       }
 
@@ -75,7 +98,6 @@ buttons.forEach((button) =>
     if (operatorChecker.includes(button.textContent)) {
       if (operator != null && operandL != null && operandR != null) {
         getResult();
-        console.log("gei");
 
         operandL = result;
         result = null;
