@@ -16,6 +16,20 @@ function divide(a, b) {
   return a / b;
 }
 
+function getResult() {
+  result = operate(operatorFunc, operandL, operandR);
+  display.value = result;
+}
+
+function reset() {
+  operator = operandL = operandR = result = null;
+  display.value = 0;
+}
+
+function dotChecker() {
+  //
+}
+
 const display = document.querySelector("#display");
 
 display.style.pointerEvents = "none";
@@ -29,12 +43,16 @@ function operate(operatorArg, operandLArg, operandRArg) {
 const buttons = document.querySelectorAll("button");
 buttons.forEach((button) =>
   button.addEventListener("click", (event) => {
-    let numChecker = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+    let numChecker = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."];
     let operatorChecker = ["+", "-", "*", "/"];
 
-    if (numChecker.includes(+button.textContent)) {
-      if (operator == undefined) {
-        if (operandL == undefined) {
+    if (numChecker.includes(button.textContent)) {
+      if (result != null) {
+        reset();
+      }
+
+      if (operator == null) {
+        if (operandL == null) {
           operandL = button.textContent;
           display.value = operandL;
         } else {
@@ -42,7 +60,7 @@ buttons.forEach((button) =>
           display.value = operandL;
         }
       } else {
-        if (operandR == undefined) {
+        if (operandR == null) {
           operandR = button.textContent;
           display.value = operandR;
         } else {
@@ -55,6 +73,15 @@ buttons.forEach((button) =>
     }
 
     if (operatorChecker.includes(button.textContent)) {
+      if (operator != null && operandL != null && operandR != null) {
+        getResult();
+        console.log("gei");
+
+        operandL = result;
+        result = null;
+        operandR = null;
+      }
+
       operator = button.textContent;
 
       if (operator == "+") {
@@ -71,20 +98,16 @@ buttons.forEach((button) =>
     }
 
     if (button.textContent == "=") {
-      if (!!operandL == true && !!operandR == true && !!operator == true) {
-        result = operate(operatorFunc, operandL, operandR);
-        console.log([result, typeof result]);
-        display.value = Math.round(result * 100) / 100;
+      if (operator != null && operandL != null && operandR != null) {
+        getResult();
       } else {
-        operator = operandL = operandR = null;
-        display.value = 0;
+        reset();
       }
       // console.log("execute");
     }
 
     if (button.textContent == "Clear") {
-      operator = operandL = operandR = null;
-      display.value = 0;
+      reset();
       // console.log("clear");
     }
     console.log([button.textContent, operandL, operator, operandR, result]);
