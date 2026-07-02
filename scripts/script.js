@@ -132,6 +132,23 @@ buttons.forEach((button) =>
       reset();
       // console.log("clear");
     }
+
+    if (button.textContent == "<") {
+      if (operator == null) {
+        operandL = operandL.slice(0, -1);
+        if (operandL == "") {
+          operandL = null;
+        }
+        display.value = operandL;
+      } else {
+        operandR = operandR.slice(0, -1);
+        if (operandR == "") {
+          operandR = null;
+        }
+
+        display.value = operandR;
+      }
+    }
     console.log([button.textContent, operandL, operator, operandR, result]);
   }),
 );
